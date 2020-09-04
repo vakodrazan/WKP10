@@ -8,7 +8,7 @@ The starter code will show a list of randomly generated partners, thanks to Fake
 
 Each partners will have two actions associated with their profile.
 
-## Screenshot
+## Screenshot of the starting code
 
 ![assets/Screenshot_2020-09-04_at_17.20.28.png](assets/Screenshot_2020-09-04_at_17.20.28.png)
 
