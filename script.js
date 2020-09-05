@@ -54,7 +54,7 @@ const editPartnerPopup = person => {
 	// create edit popup here
 	console.log(person)
 
-	return new Promise(async function(resolve) {
+	return new Promise(function(resolve) {
 		const popup = document.createElement('form');
 		popup.classList.add('popup');
 		popup.insertAdjacentHTML('afterbegin', `
