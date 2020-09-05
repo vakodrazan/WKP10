@@ -18,34 +18,74 @@ const displayList = data => {
 	tbody.innerHTML = data
 		.map(
 			(person, index) => `
-    <tr data-id="${person.id}" class="${index % 2 ? 'even' : ''}">
-        <td><img src="${person.picture}" alt="${person.firstName + ' ' + person.lastName}"/></td>
-        <td>${person.lastName}</td>
-        <td>${person.firstName}</td>
-        <td>${person.jobTitle}</td>
-        <td>${person.jobArea}</td>
-        <td>${person.phone}</td>
-        <td>
-            <button class="edit">
-                <svg viewBox="0 0 20 20" fill="currentColor" class="pencil w-6 h-6"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path></svg>
-            </button>
-            <button class="delete">
-                <svg viewBox="0 0 20 20" fill="currentColor" class="trash w-6 h-6"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-            </button>
-            </td>
-    </tr>
-`
+			<tr data-id="${person.id}" class="${index % 2 ? 'even' : ''}">
+				<td><img src="${person.picture}" alt="${person.firstName + ' ' + person.lastName}"/></td>
+				<td>${person.lastName}</td>
+				<td>${person.firstName}</td>
+				<td>${person.jobTitle}</td>
+				<td>${person.jobArea}</td>
+				<td>${person.phone}</td>
+				<td>
+					<button class="edit" data-id="${person.id}">
+						<svg viewBox="0 0 20 20" fill="currentColor" class="pencil w-6 h-6"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path></svg>
+					</button>
+					<button class="delete" data-id="${person.id}">
+						<svg viewBox="0 0 20 20" fill="currentColor" class="trash w-6 h-6"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+					</button>
+					</td>
+				</tr>
+			`
 		)
 		.join('');
 };
 
-const editPartner = () => {
-	// code edit function here
+
+const editPartner = async e => {
+	const button = e.target.closest('button.edit');
+	if (button) {
+		const answer = await editPartnerPopup(e.target.closest('button.edit'));
+		console.log(answer)
+		
+        // await wait(50);
+		
+	}
 };
 
-const editPartnerPopup = () => {
+
+const editPartnerPopup = (person) => {
 	// create edit popup here
+
+	return new Promise(async function(resolve) {
+		const popup = document.createElement('form');
+		popup.classList.add('popup');
+		popup.insertAdjacentHTML('afterbegin', `
+			<fieldset>
+				<label>lastName</label>
+				<input type="text" name="lastName value="${person.lastName}">
+			</fieldset>
+			<fieldset>
+				<label>firstName</label>
+				<input type="text" name="firstName value="${person.firstName}">
+			</fieldset>
+			<fieldset>
+				<label>jobTitle</label>
+				<input type="text" name="jobTitle value="${person.jobTitle}">
+			</fieldset>
+			<fieldset>
+				<label>jobArea</label>
+				<input type="text" name="jobArea value="${person.jobArea}">
+			</fieldset>
+			<fieldset>
+				<label>phone</label>
+				<input type="text" name="phone value="${person.phone}">
+			</fieldset>
+			<button>submit<button>
+		`)
+	});
 };
+
+editPartnerPopup(persons);
+
 
 const deletePartner = () => {
 	// code delete function gere
@@ -54,5 +94,6 @@ const deletePartner = () => {
 const deleteDeletePopup = () => {
 	// create confirmation popup here
 };
-
+tbody.addEventListener('click', editPartner);
 displayList(persons);
+
