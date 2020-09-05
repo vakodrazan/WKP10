@@ -81,6 +81,17 @@ const editPartnerPopup = person => {
 			<button>submit</button>
 		`);
 
+		// if (person.cancel) {
+		// 	const cancelBtn = document.createElement('button');
+		// 	cancelBtn.type = 'button';
+		// 	cancelBtn.textContent = "Cancel";
+		// 	popup.firstElementChild.appendChild(cancelBtn);
+
+		// 	cancelBtn.addEventListener("cancel", () => {
+		// 		resolve(null);
+		// 	})
+		// }
+
 		document.body.appendChild(popup);
 		popup.classList.add('open');
 
@@ -101,7 +112,14 @@ const deletePartner = e => {
 
 const deleteDeletePopup = () => {
 	// create confirmation popup here
-	console.log("hello")
+	const popupDiv = document.createElement('div');
+	popupDiv.classList.add('popupDiv')
+	popupDiv.insertAdjacentHTML('afterbegin', `
+		<button>Yes</button>
+		<button>No</button>
+	`);
+	document.body.appendChild(popupDiv);
+	popupDiv.classList.add('open');
 };
 tbody.addEventListener('click', editPartner);
 
