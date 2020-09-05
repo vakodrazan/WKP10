@@ -30,6 +30,13 @@ When you'll click on the trash icon, a popup will also appear. It will ask you a
 ## Student Report
 
 -   What was the main challenge that you had to face during the project?
+
+### The main challenge I faced
+
+ - All of the things that we need to do in this project are challenge.
+ - I found this WKP10 the the biggest challenge from what we have done evry weekend.
+ - I could get anything work, neither edit button nor delete button.
+
 -   Did you use Promise callbacks? Or Async Await?
 
 Good luck everybody 🐻
