@@ -38,22 +38,21 @@ const displayList = data => {
 		)
 		.join('');
 };
-
+displayList(persons);
 
 const editPartner = async e => {
 	const button = e.target.closest('button.edit');
+	
 	if (button) {
-		const answer = await editPartnerPopup(e.target.closest('button.edit'));
-		console.log(answer)
-		
-        // await wait(50);
-		
+		e.preventDefault();
+		const id = e.target.dataset.value;
+		editPartnerPopup(id);
 	}
 };
 
-
-const editPartnerPopup = (person) => {
+const editPartnerPopup = person => {
 	// create edit popup here
+	console.log(person)
 
 	return new Promise(async function(resolve) {
 		const popup = document.createElement('form');
@@ -61,39 +60,50 @@ const editPartnerPopup = (person) => {
 		popup.insertAdjacentHTML('afterbegin', `
 			<fieldset>
 				<label>lastName</label>
-				<input type="text" name="lastName value="${person.lastName}">
+				<input type="text" name="lastName" value="${faker.name.lastName()}">
 			</fieldset>
 			<fieldset>
 				<label>firstName</label>
-				<input type="text" name="firstName value="${person.firstName}">
+				<input type="text" name="firstName" value="${faker.name.firstName()}">
 			</fieldset>
 			<fieldset>
 				<label>jobTitle</label>
-				<input type="text" name="jobTitle value="${person.jobTitle}">
+				<input type="text" name="jobTitle" value="${faker.name.jobTitle()}">
 			</fieldset>
 			<fieldset>
 				<label>jobArea</label>
-				<input type="text" name="jobArea value="${person.jobArea}">
+				<input type="text" name="jobArea" value="${faker.name.jobArea()}">
 			</fieldset>
 			<fieldset>
 				<label>phone</label>
-				<input type="text" name="phone value="${person.phone}">
+				<input type="text" name="phone" value="${faker.phone.phoneNumber()}">
 			</fieldset>
-			<button>submit<button>
-		`)
+			<button>submit</button>
+		`);
+
+		document.body.appendChild(popup);
+		popup.classList.add('open');
+
 	});
 };
 
-editPartnerPopup(persons);
+// editPartnerPopup(persons);
 
 
-const deletePartner = () => {
-	// code delete function gere
+const deletePartner = e => {
+	// code delete function here
+	const button = e.target.closest('button.delete');
+	if (button) {
+		deleteDeletePopup(button);
+	}
 };
+
 
 const deleteDeletePopup = () => {
 	// create confirmation popup here
+	console.log("hello")
 };
 tbody.addEventListener('click', editPartner);
-displayList(persons);
 
+
+tbody.addEventListener('click', deletePartner);
