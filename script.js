@@ -40,7 +40,22 @@ const displayList = data => {
 };
 displayList(persons);
 
-const editPartner = async e => {
+// Wait for the promise resolve
+function wait(ms = 0) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function editPopup(popup) {
+    popup.classList.remove('open'); 
+    // wait for 0.5 second to let animation to do its work 
+    await wait(1000);
+    // remove the list from the dom
+    popup.remove();
+    // remove the person from javascript memory
+    popup = null;
+}
+
+const editPartner = e => {
 	const button = e.target.closest('button.edit');
 	
 	if (button) {
@@ -52,13 +67,13 @@ const editPartner = async e => {
 	}
 };
 
-const editPartnerPopup = (id) => {
+const editPartnerPopup = id => {
 	// create edit popup here
 	
 	const editPartnerInfo = persons.find(person => person.id === id);
 	console.log(editPartnerInfo)
 
-	return new Promise(function(resolve) {
+	return new Promise( async function(resolve) {
 		const popup = document.createElement('form');
 		popup.classList.add('popup');
 		popup.insertAdjacentHTML('afterbegin', `
@@ -82,17 +97,30 @@ const editPartnerPopup = (id) => {
 				<label>phone</label>
 				<input type="text" name="phone" value="${editPartnerInfo.phone}">
 			</fieldset>
-			<button type="button" class="cancel">Cancel</button>
+			<button type="cancel" class="cancel">Cancel</button>
 			<button type="submit" class="submit">submit</button>
 		`);
+		
+		popup.addEventListener('submit', (e) => {
+			e.preventDefault();
+			editPartnerInfo.lastName = popup.lastName.value;
+			editPartnerInfo.firstName = popup.firstName.value;
+			editPartnerInfo.jobTitle = popup.jobTitle.value;
+			editPartnerInfo.jobArea = popup.jobArea.value;
+			editPartnerInfo.phone = popup.phone.value;
+			displayList(persons);
+			resolve(e.currentTarget.remove());
+			editPopup(popup);
+			console.log(popup)
+		}, { once: true }
+		);
 
 		document.body.appendChild(popup);
+		await wait(100);
 		popup.classList.add('open');
 
 	});
 };
-
-// editPartnerPopup(persons);
 
 
 const deletePartner = e => {
