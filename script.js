@@ -139,14 +139,24 @@ const deletePartner = e => {
 };
 
 
-const deleteDeletePopup = () => {
+const deleteDeletePopup = id => {
 	// create confirmation popup here
+	console.log(id);
+	const removePerso = persons.filter(person => person.id !== id);
 	const popupDiv = document.createElement('div');
 	popupDiv.classList.add('popupDiv')
 	popupDiv.insertAdjacentHTML('afterbegin', `
-		<button>Cancel</button>
-		<button>Ok</button>
+		<button class="deleteCancel">Cancel</button>
+		<button class="remove">Ok</button>
 	`);
+
+	// Cancel the removing list
+	window.addEventListener('click', e => {
+		if (e.target.closest("button.deleteCancel")) {
+			editPopup(popupDiv);
+		}
+	});
+
 	document.body.appendChild(popupDiv);
 	popupDiv.classList.add('open');
 };
