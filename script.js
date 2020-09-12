@@ -132,9 +132,11 @@ const editPartnerPopup = id => {
 
 const deletePartner = e => {
 	// code delete function here
-	const button = e.target.closest('button.delete');
+	const button = e.target.closest('button');
 	if (button) {
-		deleteDeletePopup(button);
+		const tableRow = e.target.closest('tr');
+		const id = tableRow.dataset.id;
+		deleteDeletePopup(id);
 	}
 };
 
@@ -142,7 +144,6 @@ const deletePartner = e => {
 const deleteDeletePopup = id => {
 	// create confirmation popup here
 	console.log(id);
-	const removePerso = persons.filter(person => person.id !== id);
 	const popupDiv = document.createElement('div');
 	popupDiv.classList.add('popupDiv')
 	popupDiv.insertAdjacentHTML('afterbegin', `
@@ -156,6 +157,12 @@ const deleteDeletePopup = id => {
 			editPopup(popupDiv);
 		}
 	});
+
+	popupDiv.addEventListener('click', e => {
+		const tableRow = tbody.querySelector('tr');
+		tableRow.remove();
+		editPopup(popupDiv);
+	})
 
 	document.body.appendChild(popupDiv);
 	popupDiv.classList.add('open');
