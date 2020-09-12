@@ -97,9 +97,16 @@ const editPartnerPopup = id => {
 				<label>phone</label>
 				<input type="text" name="phone" value="${editPartnerInfo.phone}">
 			</fieldset>
-			<button type="cancel" class="cancel">Cancel</button>
+			<button type="button" class="cancel">Cancel</button>
 			<button type="submit" class="submit">submit</button>
 		`);
+
+		// listen to the window to cancel the form edit
+		window.addEventListener('click', e => {
+			if (e.target.closest('button.cancel')) {
+				editPopup(popup)
+			}
+		});
 		
 		popup.addEventListener('submit', (e) => {
 			e.preventDefault();
@@ -137,8 +144,8 @@ const deleteDeletePopup = () => {
 	const popupDiv = document.createElement('div');
 	popupDiv.classList.add('popupDiv')
 	popupDiv.insertAdjacentHTML('afterbegin', `
-		<button>Yes</button>
-		<button>No</button>
+		<button>Cancel</button>
+		<button>Ok</button>
 	`);
 	document.body.appendChild(popupDiv);
 	popupDiv.classList.add('open');
