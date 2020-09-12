@@ -97,8 +97,11 @@ const editPartnerPopup = id => {
 				<label>phone</label>
 				<input type="text" name="phone" value="${editPartnerInfo.phone}">
 			</fieldset>
-			<button type="button" class="cancel">Cancel</button>
-			<button type="submit" class="submit">submit</button>
+			<div class="form-btn">
+				<button type="button" class="cancel">Cancel</button>
+				<button type="submit" class="submit">submit</button>
+			</div>
+			
 		`);
 
 		// listen to the window to cancel the form edit
@@ -132,10 +135,10 @@ const editPartnerPopup = id => {
 
 const deletePartner = e => {
 	// code delete function here
-	const button = e.target.closest('button');
+	const button = e.target.closest('button.delete');
 	if (button) {
-		const tableRow = e.target.closest('tr');
-		const id = tableRow.dataset.id;
+		const row = e.target.closest('tr');
+		const id = row.dataset.id;
 		deleteDeletePopup(id);
 	}
 };
@@ -147,11 +150,11 @@ const deleteDeletePopup = idToDelete => {
 	popupDiv.classList.add('popupDiv')
 	popupDiv.insertAdjacentHTML('afterbegin', `
 		<button class="deleteCancel">Cancel</button>
-		<button class="remove">Ok</button>
+		<button class="remove">Yes</button>
 	`);
 
 	// Cancel the removing list
-	window.addEventListener('click', e => {
+	popupDiv.addEventListener('click', e => {
 		if (e.target.closest("button.deleteCancel")) {
 			editPopup(popupDiv);
 		}
@@ -164,7 +167,6 @@ const deleteDeletePopup = idToDelete => {
 			displayList(personToDelete);
 			popupDiv.classList.remove("open");
 		}
-		
 	})
 
 	document.body.appendChild(popupDiv);
