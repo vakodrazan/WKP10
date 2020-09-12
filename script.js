@@ -78,23 +78,23 @@ const editPartnerPopup = id => {
 		popup.classList.add('popup');
 		popup.insertAdjacentHTML('afterbegin', `
 			<fieldset>
-				<label>lastName</label>
+				<label>LastName</label>
 				<input type="text" name="lastName" value="${editPartnerInfo.lastName}">
 			</fieldset>
 			<fieldset>
-				<label>firstName</label>
+				<label>FirstName</label>
 				<input type="text" name="firstName" value="${editPartnerInfo.firstName}">
 			</fieldset>
 			<fieldset>
-				<label>jobTitle</label>
+				<label>JobTitle</label>
 				<input type="text" name="jobTitle" value="${editPartnerInfo.jobTitle}">
 			</fieldset>
 			<fieldset>
-				<label>jobArea</label>
+				<label>JobArea</label>
 				<input type="text" name="jobArea" value="${editPartnerInfo.jobArea}">
 			</fieldset>
 			<fieldset>
-				<label>phone</label>
+				<label>Phone</label>
 				<input type="text" name="phone" value="${editPartnerInfo.phone}">
 			</fieldset>
 			<div class="form-btn">
