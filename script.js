@@ -44,15 +44,19 @@ const editPartner = async e => {
 	const button = e.target.closest('button.edit');
 	
 	if (button) {
+		const tableRow = e.target.closest('tr');
 		e.preventDefault();
-		const id = e.target.dataset.value;
+		const id = tableRow.dataset.id;
 		editPartnerPopup(id);
+	
 	}
 };
 
-const editPartnerPopup = person => {
+const editPartnerPopup = (id) => {
 	// create edit popup here
-	console.log(person)
+	
+	const editPartnerInfo = persons.find(person => person.id === id);
+	console.log(editPartnerInfo)
 
 	return new Promise(function(resolve) {
 		const popup = document.createElement('form');
@@ -60,37 +64,27 @@ const editPartnerPopup = person => {
 		popup.insertAdjacentHTML('afterbegin', `
 			<fieldset>
 				<label>lastName</label>
-				<input type="text" name="lastName" value="${faker.name.lastName()}">
+				<input type="text" name="lastName" value="${editPartnerInfo.lastName}">
 			</fieldset>
 			<fieldset>
 				<label>firstName</label>
-				<input type="text" name="firstName" value="${faker.name.firstName()}">
+				<input type="text" name="firstName" value="${editPartnerInfo.firstName}">
 			</fieldset>
 			<fieldset>
 				<label>jobTitle</label>
-				<input type="text" name="jobTitle" value="${faker.name.jobTitle()}">
+				<input type="text" name="jobTitle" value="${editPartnerInfo.jobTitle}">
 			</fieldset>
 			<fieldset>
 				<label>jobArea</label>
-				<input type="text" name="jobArea" value="${faker.name.jobArea()}">
+				<input type="text" name="jobArea" value="${editPartnerInfo.jobArea}">
 			</fieldset>
 			<fieldset>
 				<label>phone</label>
-				<input type="text" name="phone" value="${faker.phone.phoneNumber()}">
+				<input type="text" name="phone" value="${editPartnerInfo.phone}">
 			</fieldset>
-			<button>submit</button>
+			<button type="button" class="cancel">Cancel</button>
+			<button type="submit" class="submit">submit</button>
 		`);
-
-		// if (person.cancel) {
-		// 	const cancelBtn = document.createElement('button');
-		// 	cancelBtn.type = 'button';
-		// 	cancelBtn.textContent = "Cancel";
-		// 	popup.firstElementChild.appendChild(cancelBtn);
-
-		// 	cancelBtn.addEventListener("cancel", () => {
-		// 		resolve(null);
-		// 	})
-		// }
 
 		document.body.appendChild(popup);
 		popup.classList.add('open');
